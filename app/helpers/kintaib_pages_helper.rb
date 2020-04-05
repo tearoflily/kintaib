@@ -1,0 +1,2 @@
+module KintaibPagesHelper
+end
