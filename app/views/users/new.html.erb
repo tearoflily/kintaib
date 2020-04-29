@@ -1,3 +1,22 @@
 <% provide(:title, 'Sign up') %>
+
 <h1>ユーザー登録</h1>
 <p>このページでは必要な項目を入力して、ユーザーを新規作成します。</p>
+<%= form_with(model: @user, local: true) do |f| %>
+    <%= f.label :name, "名前", class: "label-login" %>
+    <%= f.text_field :name, class: 'form-control' %>
+    
+    <%= f.label :email, "Eメール", class: "label-login" %>
+    <%= f.email_field :email, class: 'form-control' %>
+    
+    <%= f.label :department, "所属", class: "label-login" %>
+    <%= f.text_field :department, class: 'form-control' %>
+    
+    <%= f.label :password, "パスワード", class: "label-login" %>
+    <%= f.password_field :password, class: 'form-control' %>
+    
+    <%= f.label :password_confirmation, "パスワード", class: "label-login" %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+    
+    <%= f.submit class: 'btn btn-primary btn-block btn-user--edit' %>
+<% end %>

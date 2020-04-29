@@ -1,0 +1,28 @@
+<%= provide(:title, "Edit") %>
+
+<h1>アカウント情報の更新</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3" >
+    <%= form_with(model: @user, local: true) do |form| %>
+    
+      <%= form.label :name, class: 'label-user--edit' %>
+      <%= form.text_field :name, class: 'form-control' %>
+      
+      <%= form.label :email, class: 'label-user--edit' %>
+      <%= form.email_field :email, class: 'form-control' %>
+      
+      <%= form.label :department, "所属", class: "label-login" %>
+      <%= form.text_field :department, class: 'form-control' %>
+      
+      <%= form.label :password, class: 'label-user--edit' %>
+      <%= form.password_field :password, class: 'form-control' %>
+      
+      <%= form.label :password_confirmation, class: 'label-user--edit' %>
+      <%= form.password_field :password_confirmation, class: 'form-control' %>
+      
+      <%= form.submit "変更を保存する", class: 'btn btn-primary btn-block btn-user--edit' %>
+    
+    <% end %>
+  </div>
+</div>

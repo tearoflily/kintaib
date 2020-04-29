@@ -67,3 +67,52 @@ p {
   color: #fff;
   text-decoration: none;
 }
+
+/* top */
+.top-comment {
+  margin-top: 20px;
+}
+
+/* footer */
+.footer {
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.footer-left {
+  float: left;
+}
+
+
+.footer-right {
+  float: right;
+}
+
+.footer-right ul li {
+  display: inline;
+  margin-left: 30px;
+}
+
+/* 入力フォーム */
+.label-user--edit {
+  margin-top: 5px;
+}
+
+.btn-user--edit {
+  margin-top: 10px;
+}
+
+/* 勤怠.index */
+
+#table-attendances {
+  th {
+    vertical-align: middle;
+    text-align: center;
+  }
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+}
