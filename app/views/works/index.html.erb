@@ -1,29 +1,29 @@
 
 
-<table class="table table-bordered">
+<table class="table table-bordered kintai-list" id="table-attendances-top">
 	<tbody>
 		<tr>
-			<td><%= link_to "前月へ", user_works_path(date: @first_day.prev_month), class: "btn btn-info" %>
-			【 <%= l(@first_day, format: :middle) %> 勤怠管理表 】
-			<%= link_to "次月へ", user_works_path(date: @first_day.next_month), class: "btn btn-info" %>
+			<td><%= link_to "←", user_works_path(date: @first_day.prev_month), class: "btn btn-default btn-outline-secondary" %>
+			<%= l(@first_day, format: :middle) %> 時間管理表
+			<%= link_to "→", user_works_path(date: @first_day.next_month), class: "btn btn-default btn-outline-secondary" %>
 			</td>
-			<td>指定勤務時間：<%= format_basic_info(@user.work_time) %></td>
+			<td class="mx-auto">指定勤務時間：<%= format_basic_info(@user.work_time) %></td>
 			<td colspan="3">基本時間：<%= format_basic_info(@user.basic_time) %></td>
 			<td>初日：<%= l(@first_day, format: :short) %></td>
 		</tr>
 		<tr>
-			<td>所属：<%= current_user.department %></td>
-			<td>氏名：<%= current_user.name %></td>
+			<td>所属：<%= @user.department %></td>
+			<td>氏名：<%= @user.name %></td>
 			<td>コード</td>
 			<td></td>
-			<td>出勤日数 --</td>
+			<td>出勤日数 <%= @worked_sum %></td>
 			<td>締め <%= l(@last_day, format: :short) %></td>
 		</tr>
 	</tbody>
 </table>
 
 
-<%= button_to '勤怠を編集', "#", class: "btn btn-default btn-info"  %>
+<%= button_to '勤怠を編集', edit_user_work_path(@user, @first_day),method: :get, class: "btn btn-default btn-outline-secondary"  %>
 
 
 <table class="table table-bordered table-striped" id="table-attendances">
@@ -44,18 +44,19 @@
     </tr>
   </thead>
   
+
   <tbody>
     <% @attendances.each do |day| %>
     <tr>
       <td><%= l(day.worked_on, format: :short) %></td>
       
-      <td><%= $days_of_the_week[day.worked_on.wday] %></td>
+      <td class="<%="wday#{day.worked_on.wday}"%>"><%= $days_of_the_week[day.worked_on.wday] %></td>
       
       <td><%= l(day.started_at, format: :hour ) if day.started_at.present? %></td>
       <td><%= l(day.started_at, format: :minut ) if day.started_at.present? %></td>
       <td> 
         <% if (Date.current == day.worked_on) && day.started_at.nil? %>
-          <%= link_to "出勤登録", user_work_path(@user,day), method: :patch, class: "btn btn-primary" %>
+          <%= link_to "出勤登録", user_works_path(@user,Time.current), method: :post, class: "btn btn-default btn-outline-secondary" %>
         <% end %>
       </td>
       
@@ -64,12 +65,16 @@
       <td><%= l(day.finished_at, format: :minut) if day.finished_at.present? %></td>
       <td>
         <% if (Date.current == day.worked_on) && day.started_at.present? && day.finished_at.nil? %>
-          <%= link_to "退勤登録", user_work_path(@user,day), method: :patch, class: "btn btn-primary" %>
+          <%= link_to "退勤登録", user_works_path(@user,Time.current), method: :post, class: "btn btn-default btn-outline-secondary" %>
         <% end %>
       </td>
       
-      <td>9</td>
-      <td>9</td>
+      <td>
+        <% if day.started_at.present? && day.finished_at.present? %>
+          <%= zaisha(day.finished_at, day.started_at) %>
+        <% end %>
+      </td>
+      <td><%= day.note %></td>
       <td>9</td>
       <td>9</td>
     </tr>

@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20200423124845) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "department"
-    t.datetime "basic_time", default: "2020-04-18 00:00:00"
-    t.datetime "work_time", default: "2020-04-17 23:00:00"
+    t.datetime "basic_time", default: "2020-05-14 00:00:00"
+    t.datetime "work_time", default: "2020-05-13 23:00:00"
   end
 
 end

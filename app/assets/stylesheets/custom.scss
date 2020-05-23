@@ -116,3 +116,43 @@ p {
   }
   
 }
+
+
+
+#table-attendances-top {
+  th {
+    vertical-align: middle;
+    text-align: center;
+  }
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+}
+
+
+
+
+#table-users > thead > tr > th {
+      width :75%;
+      border-bottom: 0px solid #ddd;
+      }
+      
+.table_right {
+  text-align: right;
+}
+
+.table_left {
+  text-align: left;
+}
+
+
+/* 仕様対応 */
+.wday0 {
+  color: red;
+}
+
+.wday7 {
+  color: blue;
+}

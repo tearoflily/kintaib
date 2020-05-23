@@ -14,8 +14,11 @@
       <tbody>
         <% @users.each do |user| %>
         <tr>
-            <td><%= link_to user.name, edit_user_path(user) %></td>
-            <td><%= link_to '削除', user_path(user), method: :delete, class:"btn btn-danger" %></td>
+            <td><%= link_to user.name, user_works_path(user.id) %></td>
+            
+            <td class="table_right"><%= link_to 'ユーザー情報', edit_user_path(user.id), class:"btn btn-info" %></td>
+            <td class="table_left"><%= link_to '削除', user_path(user), method: :delete, class:"btn btn-danger" %></td>
+            
         </tr>
         <% end %>
       </tbody>

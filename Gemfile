@@ -4,6 +4,7 @@ gem 'rails',        '~> 5.1.6'
 gem 'bootstrap-sass'
 gem 'will_paginate'
 gem 'faker'
+
 gem 'bcrypt'
 gem 'rails-i18n'
 gem 'puma',         '~> 3.7'
