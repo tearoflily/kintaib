@@ -5,7 +5,7 @@ class WorksController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @worked_sum = @user.attendances.where.not(started_at: nil).count
-    @attendance_update ||= Attendance.new
+    
   end
   
   def create
@@ -49,7 +49,9 @@ class WorksController < ApplicationController
       attendances_params.each do |id, item|
         @attendance_update = Attendance.find(id)
         
-        @attendance_update.update_attributes!(item)
+        @attendance_update.attributes = (item)
+
+        @attendance_update.save!(context: :hoge)
       end
     end
     flash[:success] = "1ヶ月分の勤怠情報を更新しました。"

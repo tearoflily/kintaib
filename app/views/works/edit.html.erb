@@ -1,7 +1,6 @@
 <h1>編集画面</h1>
 
-<%= form_with(model: @user, url: user_work_path(@user.id, date: @first_day), local: true, method: :patch) do |f| %>
-    <%= render 'shared/error_messages', :object => @attendance_update %>
+   <%= render 'shared/error_messages', :object => @attendance_update %>
 
 
 <table class="table table-bordered table-striped" id="table-attendances">
@@ -21,17 +20,14 @@
   
   <tbody>
 
-<% if @attendances %>
+<%= form_with(model: @user, url: user_work_path(@user.id, date: @first_day), local: true, method: :patch) do |f| %>
 
-  
   <% @attendances.each do |day| %>
-
-    <%= f.fields_for "attendances[]", day do |attendance| %>
-  
+  <%= f.fields_for "attendances[]", day do |attendance| %>
     <tr>
       <td><%= l(day.worked_on, format: :short) %></td>
       <td class="<%="wday#{day.worked_on.wday}"%>"><%= $days_of_the_week[day.worked_on.wday] %></td>
-      <%= l(day.started_at, format: :hour ) if day.started_at.present? %>
+      <% l(day.started_at, format: :hour ) if day.started_at.present? %>
       <% if (Date.current + 1 > day.worked_on) %>
         <td><%= attendance.time_field :started_at, class: "form-control" %></td>
         <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
@@ -58,7 +54,7 @@
     </tr>
     <% end %>
   <% end %>
-<% end %>
+
   </tbody>
 
 </table>

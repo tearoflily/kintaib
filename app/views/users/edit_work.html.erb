@@ -1,0 +1,21 @@
+<%= provide(:title, "Edit") %>
+
+<h1>アカウント情報の更新</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3" >
+    <%= form_with(model: @user, url: edit_work_update_user_path(@user), local: true, method: :patch) do |form| %>
+      <%= render 'shared/error_messages', :object => @user %>
+
+      <%= form.label :work_time, "指定勤務時間", class: "label-login" %>
+      <%= form.time_field :work_time, class: 'form-control' %>
+      
+      <%= form.label :basic_time, "基本勤務時間", class: "label-login" %>
+      <%= form.time_field :basic_time, class: 'form-control' %>
+
+      
+      <%= form.submit "変更を保存する", class: 'btn btn-primary btn-block btn-user--edit' %>
+    
+    <% end %>
+  </div>
+</div>
