@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   
   
   resources :users do
+  
     member do
       get 'works/edit', :param => 'date'
+      
     end
     resources :works
   end

@@ -8,4 +8,14 @@ class User < ApplicationRecord
   
   validates :department, length: { in: 2..30 }, allow_blank: true
   
+  
+  def self.search(search)
+    if search
+      where(['name LIKE ?', "%#{search}%"])
+    else
+      all
+    end
+  end
+  
+  
 end

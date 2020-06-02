@@ -46,14 +46,15 @@
   
 
   <tbody>
+    <% @sum = 0 %>
     <% @attendances.each do |day| %>
     <tr>
-      <td><%= l(day.worked_on, format: :short) %></td>
       
+      <td><%= l(day.worked_on, format: :short) %></td>
       <td class="<%="wday#{day.worked_on.wday}"%>"><%= $days_of_the_week[day.worked_on.wday] %></td>
       
-      <td><%= l(day.started_at, format: :hour ) if day.started_at.present? %></td>
-      <td><%= l(day.started_at, format: :minut ) if day.started_at.present? %></td>
+      <td><%= l(day.started_at.floor_to(15.minute), format: :hour ) if day.started_at.present? %></td>
+      <td><%= l(day.started_at.floor_to(15.minute), format: :minut ) if day.started_at.present? %></td>
       <td> 
         <% if (Date.current == day.worked_on) && day.started_at.nil? %>
           <%= link_to "出勤登録", user_works_path(@user,Time.current), method: :post, class: "btn btn-default btn-outline-secondary" %>
@@ -61,8 +62,8 @@
       </td>
       
       
-      <td><%= l(day.finished_at, format: :hour) if day.finished_at.present? %></td>
-      <td><%= l(day.finished_at, format: :minut) if day.finished_at.present? %></td>
+      <td><%= l(day.finished_at.floor_to(15.minute), format: :hour) if day.finished_at.present? %></td>
+      <td><%= l(day.finished_at.floor_to(15.minute), format: :minut) if day.finished_at.present? %></td>
       <td>
         <% if (Date.current == day.worked_on) && day.started_at.present? && day.finished_at.nil? %>
           <%= link_to "退勤登録", user_works_path(@user,Time.current), method: :post, class: "btn btn-default btn-outline-secondary" %>
@@ -71,15 +72,26 @@
       
       <td>
         <% if day.started_at.present? && day.finished_at.present? %>
-          <%= zaisha(day.finished_at, day.started_at) %>
+          <%= @i = zaisha(day.finished_at, day.started_at).to_f %>
+          <% @sum += @i %>
         <% end %>
       </td>
-      <td><%= day.note %></td>
+      <td></td>
       <td>9</td>
       <td>9</td>
     </tr>
+
+   
     <% end %>
     
+    <tr>
+      <th colspan="2"></th>
+      <th colspan="6"></th>
+      <th colspan="1">在社時間合計：<%= @sum %></th>
+      <th colspan="1"></th>
+      <th colspan="1"></th>
+      <th colspan="1"></th>
+    </tr>
 
     
     

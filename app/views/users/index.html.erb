@@ -1,28 +1,38 @@
 <%= provide(:title, "Users") %>
+<h1>全てのユーザー</h1>
+<div class="col-md-10 col-md-offset-1">
+  <%= form_tag(users_path, :method => "get") do %> 
+  <div class="input-group">
+    <%= text_field_tag :search, params[:search], placeholder: "キーワード検索", class: "form-control" %>
+    <span class="input-group-btn">
+      <%= submit_tag "検索", :name => nil, class: "btn btn-primary" %>
+    </span>
+  </div>
+  <% end %>
+</div>
 
-<h1>利用者一覧</h1>
+
 <div class="row">
+
   <div class="col-md-10 col-md-offset-1">
-    <%= will_paginate %>
+    <%= will_paginate @users, :previous_label => '前へ', :next_label => '次へ' %>
     <table class="table table-condensed table-hover" id="table-users">
-      <thead>
-        <t>
-          <th><%= User.human_attribute_name :name %></th>
-        </t>
-      </thead>
-      
+
       <tbody>
         <% @users.each do |user| %>
         <tr>
-            <td><%= link_to user.name, user_works_path(user.id) %></td>
+            <td>
+            <p class="user-list-height">
+            <%= link_to user.name, user_works_path(user.id) %><font color="silver"> | </font>
             
-            <td class="table_right"><%= link_to 'ユーザー情報', edit_user_path(user.id), class:"btn btn-info" %></td>
-            <td class="table_left"><%= link_to '削除', user_path(user), method: :delete, class:"btn btn-danger" %></td>
+            <%= link_to 'ユーザー情報', edit_user_path(user.id) %><font color="silver"> | </font>
             
+            <%= link_to '削除', user_path(user), method: :delete %></td>
+            </p>
         </tr>
         <% end %>
       </tbody>
     </table>
-    <%= will_paginate %>
+    <%= will_paginate @users, :previous_label => '前へ', :next_label => '次へ' %>
   </div>
 </div>
