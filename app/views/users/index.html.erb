@@ -25,7 +25,7 @@
             <p class="user-list-height">
             <%= link_to user.name, user_works_path(user.id) %><font color="silver"> | </font>
             
-            <%= link_to 'ユーザー情報', edit_user_path(user.id) %><font color="silver"> | </font>
+            <%= link_to '勤怠情報編集', edit_work_user_path(user.id) %><font color="silver"> | </font>
             
             <%= link_to '削除', user_path(user), method: :delete %></td>
             </p>

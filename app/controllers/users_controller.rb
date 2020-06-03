@@ -49,6 +49,10 @@ class UsersController < ApplicationController
       render :index
     end
   end
+  
+  def edit_work
+    @user = User.find(params[:id])
+  end
     
   
   private
