@@ -1,6 +1,8 @@
 class WorksController < ApplicationController
   before_action :set_one_month, only:[:index, :edit, :update]
   
+
+  before_action :admin_or_correct_user, only: [:index, :edit, :update, :show]
   
   def index
     @user = User.find(params[:user_id])
@@ -68,6 +70,15 @@ class WorksController < ApplicationController
   
     def attendances_params
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+    end
+    
+    
+    def admin_or_correct_user
+      @user = User.find(params[:id]) if @user.blank?
+      unless current_user?(@user) || current_user.admin?
+        flash[:danger] = "編集権限がありません。"
+        redirect_to(root_url)
+      end
     end
   
 end

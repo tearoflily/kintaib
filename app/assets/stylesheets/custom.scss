@@ -133,6 +133,11 @@ p {
 
 
 
+#none-border {
+  border-style: none;
+}
+
+
 
 #table-users > thead > tr > th {
       width :75%;
@@ -170,3 +175,7 @@ p {
   margin :auto;
 }
 
+
+.list-save-btn {
+  text-align: center;
+}

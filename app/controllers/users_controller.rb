@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
 
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
 
+  before_action :admin_user, only: [:destroy, :index, :edit_work]
+  before_action :admin_or_correct_user, only: [:show, :edit, :update]
   
   def index
     @users = User.paginate(page: params[:page]).search(params[:search])
-  
+    if params[:search]
+      @title_search = "検索結果"
+    end
   end
   
   def new
@@ -53,6 +58,10 @@ class UsersController < ApplicationController
   def edit_work
     @user = User.find(params[:id])
   end
+  
+
+    
+
     
   
   private
@@ -60,8 +69,30 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :department, :basic_time, :work_time, :password, :password_confirmation)
     end
+    
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "ログインしてください"
+        redirect_to login_url
+      end
+    end
+    
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end
   
+    def admin_user
+      redirect_to root_url unless current_user.admin?
+    end
+
+    def admin_or_correct_user
+      @user = User.find(params[:id]) if @user.blank?
+      unless current_user?(@user) || current_user.admin?
+        flash[:danger] = "編集権限がありません。"
+        redirect_to(root_url)
+      end
+    end
   
-  
-  
+
 end

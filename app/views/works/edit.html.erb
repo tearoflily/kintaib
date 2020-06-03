@@ -58,7 +58,10 @@
   </tbody>
 
 </table>
-<%= f.submit "まとめて更新", class: "btn btn-default btn-outline-secondary" %>
-<%= link_to "キャンセル", user_works_path(current_user.id, date: @first_day), class: "btn btn-default btn-outline-secondary" %>
+
+<div class="list-save-btn">
+  <%= f.submit "まとめて更新", class: "btn btn-default btn-outline-secondary" %>
+  <%= link_to "キャンセル", user_works_path(current_user.id, date: @first_day), class: "btn btn-default btn-outline-secondary" %>
+</div>
 
 <% end %>
